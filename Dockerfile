@@ -16,8 +16,13 @@ RUN apt-get update && apt-get install gnupg wget -y && \
 # Copy the rest of your application code into the image
 COPY . .
 
+RUN deno compile -A ./index.js
+
 # Expose the port your app runs on (adjust if necessary)
 EXPOSE 4567
+
+# Use Tini as the entrypoint to ensure PID 1 is always Tini
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # Command to run your application (adjust if necessary)
 CMD ["/uniprot-scrape"]
