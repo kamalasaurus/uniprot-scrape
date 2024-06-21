@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 4567
 
 # Command to run your application (adjust if necessary)
-CMD ["deno", "run", "-A", "./index.js"]
+CMD ["./uniprot-scrape"]
