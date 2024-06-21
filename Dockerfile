@@ -4,9 +4,6 @@ FROM denoland/deno:latest
 # We don't need the standalone Chromium
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
-# Set a working directory
-WORKDIR /app
-
 # Install Google Chrome Stable and fonts
 # Note: this installs the necessary libs to make the browser work with Puppeteer.
 RUN apt-get update && apt-get install gnupg wget unzip -y && \
@@ -17,7 +14,7 @@ RUN apt-get update && apt-get install gnupg wget unzip -y && \
   rm -rf /var/lib/apt/lists/*
 
 # Copy the rest of your application code into the image
-COPY . /app
+COPY . .
 
 RUN deno compile -A ./index.js
 
@@ -25,4 +22,4 @@ RUN deno compile -A ./index.js
 EXPOSE 4567
 
 # Command to run your application (adjust if necessary)
-CMD ["/app/index"]
+CMD ["/index"]
