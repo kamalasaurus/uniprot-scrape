@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 4567
 
 # Command to run your application (adjust if necessary)
-CMD ["./uniprot-scrape"]
+CMD ["/uniprot-scrape"]
