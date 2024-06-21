@@ -25,4 +25,4 @@ RUN deno compile -A ./index.js
 EXPOSE 4567
 
 # Command to run your application (adjust if necessary)
-CMD ["./index"]
+CMD ["/app/index"]
