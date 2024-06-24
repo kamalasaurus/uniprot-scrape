@@ -1,7 +1,7 @@
 import puppeteer from "https://deno.land/x/puppeteer@16.2.0/mod.ts";
 
 export default async function compscraper() {
-  const output = await Deno.open("./data/comprehensive-protein-sequences.tsv", {
+  const output = await Deno.open("./data/comprehensive-protein-sequences.fasta", {
     write: true,
     create: true,
     append: true

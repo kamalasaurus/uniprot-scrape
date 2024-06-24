@@ -1,0 +1,11 @@
+#!/bin/sh
+
+curl "https://rest.uniprot.org/uniprotkb/stream?compressed=true&format=fasta&query=%28%28taxonomy_id%3A272952%29%29" -o uniprot_data.fasta.gz
+
+gunzip uniprot_data.fasta.gz
+
+mv uniprot_data.fasta hyaloperonospora_arabidopsidis.fasta
+
+deno run -A concatenate-fasta.js
+
+mv processed_fasta.fasta concatenated_h_arabidopsidis.fasta

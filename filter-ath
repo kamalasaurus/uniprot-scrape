@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Path to the file containing strings to read
+stringsFile="./set-sequences/gene-list.tsv"
+
+# Path to the file you want to search through
+searchFile="./data/comprehensive-protein-sequences.fasta"
+
+# Output file where the grep results will be stored
+outputFile="./set-sequences/mukhtar-ath-protein-sequences.fasta"
+
+# Make sure outputFile is empty before starting
+> "$outputFile"
+
+# Read each line from stringsFile
+while IFS= read -r line; do
+  # Use grep to search for the line in searchFile, include the line after the match, and append the results to outputFile
+  grep -A 1 -- "$line" "$searchFile" >> "$outputFile"
+done < "$stringsFile"

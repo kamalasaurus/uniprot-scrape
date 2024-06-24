@@ -1,0 +1,3 @@
+https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_000173235.2/
+
+datasets download genome accession GCA_000173235.2 --include gff3,rna,cds,protein,genome,seq-report
