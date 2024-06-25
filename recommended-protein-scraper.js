@@ -49,10 +49,9 @@ export default async function recscraper() {
 
       const page = await browser.newPage()
       await page.setViewport({width: 1080, height: 1024})
-      await page.goto(url)
+      await page.goto(url, { waitUntil: 'networkidle0' });
 
       const linkSelector = 'a[href*=protein\\?key]'
-      await page.waitForSelector(linkSelector)
 
       const href = await page.evaluate(selector => {
         const element = document.querySelector(selector);
@@ -63,10 +62,9 @@ export default async function recscraper() {
 
       // Navigate to the href if it exists
       if (href) {
-        await page.goto(href);
+        await page.goto(href, { waitUntil: 'networkidle0' });
 
         const protSelector = 'a[href*=uniprot]'
-        await page.waitForSelector(protSelector)
 
         uniprot_name = await page.evaluate(selector => {
           const element = document.querySelector(selector);
