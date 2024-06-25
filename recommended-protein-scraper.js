@@ -12,7 +12,7 @@ export default async function recscraper() {
   // #__BVID__211 > tbody > tr > td:nth-child(1) > div
   // document.querySelectorAll('a[href*=uniprot]')[0].href
 
-  const output = await Deno.open("./data/recommended-protein-sequences.fasta", {
+  const output = await Deno.open("./data/recommended-protein-sequences.tsv", {
     write: true,
     create: true,
     append: true
