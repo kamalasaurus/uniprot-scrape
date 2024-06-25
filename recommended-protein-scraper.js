@@ -22,28 +22,16 @@ export default async function recscraper() {
 
   const encoder = new TextEncoder()
 
-  const txt = await Deno.readTextFile('./AGI2uniprot.txt')
-  const gene_to_protein = txt.split('\n')
-    .filter(Boolean)
-    .map(line => Object.fromEntries(
-      line
-        .split('\t')
-        .map((e, i) => i === 0 ? ['key', e] : ['value', e])
-    ))
-    .reduce((acc, k_v) => (
-      acc[k_v.key] ?
-        acc[k_v.key].push(k_v.value) :
-        acc[k_v.key] = [k_v.value],
-        acc
-    ), {})
+  const txt = await Deno.readTextFile('./set-sequences/gene-list.tsv')
+  const genes = txt.split('\n').filter(Boolean)
 
   const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/google-chrome',
+    // executablePath: '/usr/bin/google-chrome',
     headless: true,
     args: ['--no-sandbox']
   });
 
-  for (const gene of Object.keys(gene_to_protein)) {
+  for (const gene of Object.keys(genes)) {
     try {
       const url =  `https://www.arabidopsis.org/locus?name=${gene}`
 
