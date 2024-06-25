@@ -31,33 +31,41 @@ export default async function recscraper() {
     args: ['--no-sandbox']
   });
 
-  for (const gene of Object.keys(genes)) {
+  for (const gene of genes) {
     try {
       const url =  `https://www.arabidopsis.org/locus?name=${gene}`
 
       const page = await browser.newPage()
       await page.setViewport({width: 1080, height: 1024})
-      await page.goto(url, { waitUntil: 'networkidle0' });
+      await page.goto(url);
 
-      const linkSelector = 'a[href*=protein\\?key]'
+      const link = 'a[href*=protein\\?key]'
+      await page.waitForSelector(link)
+
+      linkSelector = await page.$(link)
 
       const href = await page.evaluate(selector => {
-        const element = document.querySelector(selector);
-        return element ? element.href : '';
+        return selector.href
       }, linkSelector)
       
+      await linkSelector.dispose();
+
       let uniprot_name = ''
 
       // Navigate to the href if it exists
       if (href) {
-        await page.goto(href, { waitUntil: 'networkidle0' });
+        await page.goto(href);
 
-        const protSelector = 'a[href*=uniprot]'
+        const prot = 'a[href*=uniprot]'
+        await page.waitForSelector(prot)
+
+        protSelector = await page.$(prot)
 
         uniprot_name = await page.evaluate(selector => {
-          const element = document.querySelector(selector);
-          return element ? element.href : '';
+          return selector.href
         }, protSelector)
+        
+        await protSelector.dispose();
       }
 
       const line = `${gene}\t${href}\t${uniprot_name}`
