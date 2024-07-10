@@ -15,5 +15,5 @@ outputFile="./set-sequences/mukhtar-ath-protein-sequences.fasta"
 # Read each line from stringsFile
 while IFS= read -r line; do
   # Use grep to search for the line in searchFile, include the line after the match, and append the results to outputFile
-  grep -A 1 -- "$line" "$searchFile" >> "$outputFile"
+  ggrep -A 1 --no-group-separator -- "$line" "$searchFile" >> "$outputFile"
 done < "$stringsFile"
