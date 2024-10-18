@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# get the first column from ./known-interactions.tsv and iterate
+# over each line
+cut -f2 known-interactions.tsv | sort | tr -d '\r' | uniq | while read line; do
+    ggrep -i --no-group-separator "$line" -A1 comprehensive-protein-sequences.fasta | ggrep --no-group-separator "Disease resistance" -A1 > "known/$line.fasta"
+done
